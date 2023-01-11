@@ -3,12 +3,12 @@ import axios from 'axios';
 import './App.css'
 
 function App() {
-  const [excuse, setexcuse] = useState("");
+  const [excuseData, setexcuseData] = useState(null);
 
   const fetchExcuse = (category) => {
-    axios.get(`https://excuser-three.vercel.app/v1/excuse/${category}/`).then((res) => {
-      setexcuse(res.data.excuse)
-      
+    axios.get(`https://excuser-three.vercel.app/v1/excuse/${category}`).then((res) => {
+      setexcuseData(res.data[0])
+      console.log(res.data);
     })
   }
 
@@ -18,7 +18,7 @@ function App() {
       <button onClick={() => fetchExcuse("party")}>party</button>
       <button onClick={() => fetchExcuse("family")}>family</button>
       <button onClick={() => fetchExcuse("office")}>office</button>
-      <p>{excuse}</p>
+      <p>{excuseData?.excuse}</p>
     </div>
   )
 }
