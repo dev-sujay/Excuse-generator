@@ -1,6 +1,10 @@
-import { useState } from 'react'
+import { useState, createContext } from 'react'
 import axios from 'axios';
 import './App.css'
+import { btnData } from './btnData';
+import Btn from './Btn';
+
+export const AppContext = createContext()
 
 function App() {
   const [excuseData, setexcuseData] = useState(null);
@@ -13,19 +17,15 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h1>Generate an excuse</h1>
-      <button onClick={() => fetchExcuse("party")}>party</button>
-      <button onClick={() => fetchExcuse("family")}>family</button>
-      <button onClick={() => fetchExcuse("office")}>office</button>
-      <button onClick={() => fetchExcuse("children")}>Children</button>
-      <button onClick={() => fetchExcuse("college")}>College</button>
-      <button onClick={() => fetchExcuse("funny")}>Funny</button>
-      <button onClick={() => fetchExcuse("unbelievable")}>Unbelievable</button>
-      <button onClick={() => fetchExcuse("developers")}>Developers</button>
-      <button onClick={() => fetchExcuse("gaming")}>Gaming</button>
-      <p>{excuseData?.excuse}</p>
-    </div>
+    <AppContext.Provider value={fetchExcuse}>
+      <div className="App">
+        <h2>Generate an excuse by clicking buttons bellow</h2>
+        {btnData.map((category) => {
+          return <Btn category={category} />
+        })}
+        <p>{excuseData?.excuse}</p>
+      </div>
+    </AppContext.Provider>
   )
 }
 
