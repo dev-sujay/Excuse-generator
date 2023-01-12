@@ -1,11 +1,17 @@
 import React from 'react'
 import { useContext } from 'react'
 import { AppContext } from './App'
+import { btnData } from './btnData';
 
-const Btn = (props) => {
-    const fetchExcuse = useContext(AppContext)
+
+
+const Btn = () => {
+  const fetchExcuse = useContext(AppContext)
   return (
-    <button onClick={() => fetchExcuse(props.category)}>{props.category}</button>
+    btnData.map((category) => {
+      return <button onClick={() => fetchExcuse(category)}>{category}</button>
+    })
+
   )
 }
 
